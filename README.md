@@ -90,6 +90,8 @@ These genes represent potential transcriptomic biomarkers but require further bi
 ```
 notebook.ipynb   # main analysis notebook
 README.md        # project description
+requirements.txt
+.gitignore
 ```
 
 ---
