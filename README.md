@@ -24,6 +24,16 @@ To evaluate the predictive power of blood transcriptomics and identify candidate
 
 ---
 
+## Data Access
+
+The analysis is based on the public GEO dataset GSE99039:
+https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE99039 (GSE99039_series_matrix.txt)
+
+Due to data size and licensing considerations, the dataset is not included in this repository.
+It should be downloaded separately from GEO (Gene Expression Omnibus).
+
+---
+
 ## ⚙️ Methods
 
 * Data preprocessing and cohort selection (PD vs control)
@@ -36,6 +46,16 @@ To evaluate the predictive power of blood transcriptomics and identify candidate
   * Random Forest
 * Feature selection (ANOVA / SelectKBest)
 * Model interpretation using coefficients
+
+---
+
+## How to Run
+
+1. Clone the repository
+2. Install dependencies:
+   pip install -r requirements.txt
+3. Open `notebook.ipynb` in Jupyter Notebook or JupyterLab
+4. Run the cells sequentially
 
 ---
 
@@ -90,11 +110,10 @@ These genes represent potential transcriptomic biomarkers but require further bi
 ```
 notebook.ipynb   # main analysis notebook
 README.md        # project description
-requirements.txt
-.gitignore
+requirements.txt # dependencies
+.gitignore       # ignored local/system files
+LICENSE          # MIT license
 ```
-
----
 
 ## 🧠 Key Insight
 
@@ -115,7 +134,6 @@ Alexander Groshkov
 * Vivier E et al. (2011), *Science*
 * PTGDS expression in PD (PubMed: 36010675)
 * NCBI Gene / UniProt annotations
-
 
 ---
 
