@@ -81,6 +81,7 @@ Key findings:
 Top features (genes) identified by the model:
 
 ![Top Features](feature_importance.png)
+
 These genes represent the strongest contributors to the model’s classification of PD vs control.
 
 ---
