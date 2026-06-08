@@ -154,24 +154,6 @@ The final Logistic Regression model was trained using:
 
 The top 15 genes ranked by absolute coefficient magnitude were:
 
-| Rank | Gene     | Coefficient | Absolute Coefficient |
-| ---: | -------- | ----------: | -------------------: |
-|    1 | PPP2R1A  |       0.958 |                0.958 |
-|    2 | CD14     |       0.938 |                0.938 |
-|    3 | DNASE2   |       0.883 |                0.883 |
-|    4 | ICAM1    |      -0.880 |                0.880 |
-|    5 | KIR2DL3  |       0.877 |                0.877 |
-|    6 | TMEM185B |      -0.863 |                0.863 |
-|    7 | KIR2DL1  |       0.809 |                0.809 |
-|    8 | NACC2    |       0.794 |                0.794 |
-|    9 | COTL1    |      -0.781 |                0.781 |
-|   10 | CACNA1I  |      -0.780 |                0.780 |
-|   11 | TRAFD1   |       0.759 |                0.759 |
-|   12 | PTGDS    |       0.759 |                0.759 |
-|   13 | CHST15   |       0.743 |                0.743 |
-|   14 | P2RX1    |       0.733 |                0.733 |
-|   15 | HPR      |      -0.719 |                0.719 |
-
 ![Top 15 Genes External Validation](top_15_genes_external_validation.png)
 
 These coefficients should be interpreted as model-associated features rather than causal disease genes.
