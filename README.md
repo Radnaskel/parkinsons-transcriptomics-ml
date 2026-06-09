@@ -146,7 +146,6 @@ Key steps included:
 | Gene-level + Feature Selection          |             0.59 |
 | Gene-level + ComBat + Feature Selection |         **0.63** |
 
-The main improvement came from preprocessing rather than classifier complexity: gene-level harmonization, ComBat correction, and feature selection had a larger impact than switching between ML algorithms.
 
 ### Batch Effect Before Correction
 
@@ -162,7 +161,21 @@ PC1 = 28.1%, PC2 = 7.2%
 
 ![External Validation ROC Curve](external_validation_roc_auc.png)
 
-The final external validation pipeline achieved ROC-AUC ≈ 0.634 on the independent GSE6613 cohort.
+### Model Comparison
+
+| Model                           | External ROC-AUC |
+| ------------------------------- | ---------------: |
+| Logistic Regression             |        **0.634** |
+| Elastic Net Logistic Regression |            0.599 |
+| Random Forest                   |            0.591 |
+| Linear SVM                      |            0.576 |
+| L1 Logistic Regression          |            0.565 |
+
+Among the evaluated classifiers, standard Logistic Regression achieved the highest external validation performance after gene-level harmonization, ComBat correction, and feature selection.
+More complex models, including Random Forest and SVM, did not improve external generalization, suggesting that the transferable disease signal is largely linear in the selected feature space.
+
+**These results indicate that preprocessing and harmonization had a larger impact on performance than classifier choice**.
+
 
 ### Top Genes from the Final Logistic Regression Model
 
@@ -243,7 +256,6 @@ Several additional genes identified in the discovery cohort (**LGR6**, **ZMYM2**
 * SHAP and permutation-based interpretability methods
 * Integration of additional Parkinson’s disease cohorts
 * Multi-cohort training strategies
-* RNA-seq validation
 ---
 
 ## References
