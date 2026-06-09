@@ -10,7 +10,16 @@ Within-cohort modeling (**GSE99039**) – development and evaluation of machine 
 Cross-cohort external validation (**GSE6613**) – independent validation of trained models across a separate dataset with batch-effect correction and gene-level harmonization.
 
 ---
+## Key Results
 
+* Internal validation (GSE99039): ROC-AUC ≈ 0.71
+* External validation (GSE6613): ROC-AUC ≈ 0.63
+* L1 Logistic Regression selected 499 probes but did not improve performance
+* 13,237 shared genes were identified across cohorts
+* ComBat batch correction substantially improved cross-cohort generalization
+* PTGDS, CD14, ICAM1, KIR2DL1, and KIR2DL3 emerged as biologically plausible candidate genes
+
+---
 ## Objective
 
 To evaluate whether blood transcriptomic profiles can distinguish Parkinson’s disease patients from healthy controls, identify candidate biomarkers, and assess model generalization across independent cohorts.
@@ -63,7 +72,18 @@ To evaluate whether blood transcriptomic profiles can distinguish Parkinson’s 
 ---
 ## Study 1: Within-Cohort Modeling (GSE99039)
 
-## Results
+Notebook:
+`notebook_GSE99039.ipynb`
+
+### Key Steps
+
+* preprocessing and cohort selection (PD vs control),
+* 5-fold stratified cross-validation,
+* comparison of Logistic Regression, SVM, Random Forest, L1, and Elastic Net models,
+* ANOVA-based feature selection,
+* probe-to-gene mapping and biological interpretation of top genes.
+
+### Results
 
 | Model | Mean ROC-AUC | Std |
 |---|---:|---:|
@@ -72,6 +92,10 @@ To evaluate whether blood transcriptomic profiles can distinguish Parkinson’s 
 | L1 Logistic Regression | 0.658 | 0.037 |
 | Random Forest | 0.650 | 0.042 |
 | Elastic Net | 0.637 | 0.032 |
+
+Model Performance
+
+![ROC Curve](roc_auc.png)
 
 Key findings:
 
@@ -82,19 +106,11 @@ Key findings:
 * L1 Logistic Regression selected approximately 499 probes out of 54,675.
 * Neither L1 regularization nor Elastic Net improved predictive performance.
 * Results suggest that the Parkinson’s disease transcriptomic signal is distributed across many weak features rather than a small number of dominant biomarkers.
-
-Model Performance
-
-![ROC Curve](roc_auc.png)
-
-
 ---
 
-## Candidate Genes
+### Candidate Genes
 
 Top-ranked unique genes included PTGDS, LGR6, ZMYM2, RAB1A, KIR2DL1, VMO1, RUFY2, LMOD3, and CCSAP.
-These genes represent potential transcriptomic biomarkers but require further biological validation.
-PTGDS, KIR2DL1, LGR6, ZMYM2, and RUFY2 were selected for biological discussion.
 
 Top features (genes) identified by the model:
 
@@ -105,12 +121,15 @@ These genes represent the strongest contributors to the model’s classification
 ---
 ## Study 2: External Validation (GSE6613)
 
+Notebook:
+`notebook_2_ext_val_GSE6613.ipynb`
+
 To evaluate model generalization, an independent Parkinson’s disease cohort (GSE6613) was used for external validation.
 
 Key steps included:
 
 * probe-to-gene conversion using GPL570 and GPL96 annotations,
-* identification of shared genes,
+* identification of 13,237 shared genes between cohorts,
 * Principal Component Analysis (PCA),
 * ComBat batch-effect correction,
 * ANOVA feature selection,
@@ -132,10 +151,12 @@ The main improvement came from preprocessing rather than classifier complexity: 
 ### Batch Effect Before Correction
 
 ![PCA Before](pca_before_combat.png)
+PC1 = 36.7%, PC2 = 14.0%
 
 ### Batch Effect After Correction
 
 ![PCA After](pca_after_combat.png)
+PC1 = 28.1%, PC2 = 7.2%
 
 ### Final External Validation ROC Curve
 
@@ -152,28 +173,12 @@ The final Logistic Regression model was trained using:
 * ANOVA feature selection,
 * top 500 selected genes.
 
+Top-ranked genes from the final externally validated model included PPP2R1A, CD14, DNASE2, ICAM1, KIR2DL3, TMEM185B, KIR2DL1, NACC2, COTL1, CACNA1I, TRAFD1, PTGDS, CHST15, P2RX1, and HPR.
+
 The top 15 genes ranked by absolute coefficient magnitude were:
 
 ![Top 15 Genes External Validation](top_15_genes_external_validation.png)
 
-These coefficients should be interpreted as model-associated features rather than causal disease genes.
-
-### Literature Validation
-
-To assess biological plausibility, top-ranked genes from the final model were compared with Parkinson’s disease and neuroinflammation literature.
-
-| Gene              | Evidence in Parkinson’s Disease                                | Immune / Neuroinflammation Relevance | Interpretation                                                                     |
-| ----------------- | -------------------------------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------- |
-| **PTGDS**         | Reported as differentially expressed in blood-based PD studies | Indirect                             | Strong candidate identified in both the original and externally validated analyses |
-| **CD14**          | Associated with immune alterations in PD patients              | Strong                               | Marker of monocytes and innate immune activation                                   |
-| **ICAM1**         | Reported among inflammatory markers in PD                      | Strong                               | Involved in leukocyte adhesion and inflammatory responses                          |
-| **KIR2DL1**       | Limited direct PD evidence                                     | Strong                               | Regulates NK-cell activity and innate immune responses                             |
-| **KIR2DL3**       | Limited direct PD evidence                                     | Strong                               | Supports the role of NK-cell signaling in PD-associated immune dysregulation       |
-| **KIR3DL1**       | Limited direct PD evidence                                     | Strong                               | Additional NK-cell receptor identified among important model features              |
-| **ITGAM (CD11b)** | Frequently linked to immune activation                         | Strong                               | Classical marker of myeloid cells and inflammatory responses                       |
-| **PTK2B**         | Implicated in neurodegenerative pathways                       | Moderate                             | Participates in neuronal and immune signaling pathways                             |
-| **PSAP**          | Biologically relevant to neurodegeneration                     | Moderate                             | Involved in lysosomal function, a pathway implicated in PD                         |
-| **P2RX1**         | Limited direct PD evidence                                     | Moderate                             | Purinergic receptor involved in immune activation and inflammation                 |
 
 Key findings:
 
@@ -183,16 +188,43 @@ Key findings:
 * Application of **ComBat batch correction** substantially improved cohort alignment and increased external ROC-AUC.
 * Additional feature selection further improved external validation performance.
 
-The best-performing pipeline consisted of:
-
-* gene-level harmonization,
-* ComBat batch correction,
-* ANOVA-based feature selection (top 500 genes),
-* Logistic Regression classification.
-
 This approach achieved an external ROC-AUC of approximately **0.63** on the independent GSE6613 cohort.
 
 Model interpretation identified several biologically plausible candidate genes, including **PTGDS**, **CD14**, **ICAM1**, **KIR2DL1**, **KIR2DL3**, **ITGAM**, and **PTK2B**. Many of these genes are involved in immune regulation, innate immunity, and inflammatory signaling pathways.
+
+---
+
+## Biological Interpretation
+
+### Literature Validation
+
+To assess biological plausibility, candidate genes identified across both studies were compared with published literature on Parkinson’s disease, neuroinflammation, and immune regulation.
+
+Several genes emerged as particularly noteworthy because they were either supported by existing Parkinson’s disease literature or belonged to biological pathways previously implicated in disease pathogenesis.
+
+| Gene        | Evidence in Parkinson’s Disease                                                | Biological Relevance                          | Interpretation                                              |
+| ----------- | ------------------------------------------------------------------------------ | --------------------------------------------- | ----------------------------------------------------------- |
+| **PTGDS**   | Reported as differentially expressed in blood-based PD studies                 | Prostaglandin metabolism, neuroinflammation   | Strongest candidate; identified in both Study 1 and Study 2 |
+| **KIR2DL1** | Limited direct PD evidence                                                     | NK-cell receptor, immune regulation           | Identified in both studies; supports immune involvement     |
+| **CD14**    | Associated with immune alterations in PD patients                              | Monocyte activation, innate immunity          | Strong immune-related candidate                             |
+| **ICAM1**   | Reported among inflammatory markers in PD                                      | Leukocyte adhesion and inflammatory signaling | Consistent with neuroinflammatory mechanisms                |
+| **KIR2DL3** | Limited direct PD evidence                                                     | NK-cell signaling                             | Supports a role for innate immune dysregulation             |
+| **P2RX1**   | Limited direct PD evidence                                                     | Purinergic signaling and inflammation         | Biologically plausible immune-related candidate             |
+| **PTK2B**   | Associated with neurodegenerative and inflammatory pathways                    | Immune and neuronal signaling                 | Moderate evidence supporting relevance                      |
+| **PSAP**    | Linked to lysosomal biology and neurodegeneration                              | Lysosomal function                            | Consistent with known PD-related pathways                   |
+| **RAB1A**   | Previously implicated in vesicular trafficking and α-synuclein toxicity models | Intracellular trafficking                     | Biologically plausible exploratory candidate                |
+| **LGR6**    | Limited PD evidence                                                            | Stem-cell and signaling pathways              | Exploratory candidate requiring validation                  |
+| **ZMYM2**   | No established PD association                                                  | Transcriptional regulation                    | Exploratory candidate                                       |
+| **RUFY2**   | No established PD association                                                  | Intracellular transport pathways              | Exploratory candidate                                       |
+
+
+Across both studies, the strongest and most reproducible signal originated from genes associated with immune regulation and neuroinflammation rather than classical neuronal markers.
+
+Two genes (**PTGDS** and **KIR2DL1**) emerged independently in both the discovery and external validation analyses, providing additional confidence that their identification was not driven solely by dataset-specific effects.
+
+The external validation study further highlighted immune-related genes including **CD14**, **ICAM1**, **KIR2DL3**, **P2RX1**, and **PTK2B**, suggesting that peripheral immune activation may contribute substantially to the transcriptomic signature observed in Parkinson’s disease blood samples.
+
+Several additional genes identified in the discovery cohort (**LGR6**, **ZMYM2**, **RUFY2**, **VMO1**, **LMOD3**, and **CCSAP**) currently lack strong literature support in Parkinson’s disease and should be considered exploratory candidates for future investigation.
 
 ---
 ## Limitations
@@ -220,38 +252,44 @@ Model interpretation identified several biologically plausible candidate genes, 
    GSE99039: Blood-based transcriptomic profiling of Parkinson’s disease patients and healthy controls.
 
 2. Gene Expression Omnibus (GEO).
-   GSE6613: Whole blood gene expression dataset used as an independent external validation cohort.
+   GSE6613: Independent whole-blood Parkinson’s disease cohort used for external validation.
 
-3. Soreq, L., Bergman, H., Israel, Z., & Soreq, H. (2013).
-   Major shifts in glial regional identity are a transcriptional hallmark of human brain aging. *Cell Reports*, 18(2), 557–570.
+3. Singleton, A. B., Farrer, M. J., & Bonifati, V. (2013).
+   *The genetics of Parkinson’s disease: progress and therapeutic implications.*
+   The Lancet Neurology, 12(5), 500–512.
 
-4. Singleton, A. B., Farrer, M. J., & Bonifati, V. (2013).
-   The genetics of Parkinson’s disease: progress and therapeutic implications. *The Lancet Neurology*, 12(5), 500–512.
+4. Makarious, M. B., Leonard, H. L., Vitale, D., et al. (2022).
+   *Blood-based RNA biomarkers for Parkinson’s disease identified in discordant monozygotic twins.*
+   https://pubmed.ncbi.nlm.nih.gov/36010675/
 
-5. Makarious, M. B., Leonard, H. L., Vitale, D., et al. (2022).
-   Blood-based RNA biomarkers for Parkinson’s disease identified in discordant monozygotic twins.
-   Available at: https://pubmed.ncbi.nlm.nih.gov/36010675/
+5. Hirsch, E. C., & Standaert, D. G. (2021).
+   *Ten unsolved questions about neuroinflammation in Parkinson’s disease.*
+   Movement Disorders, 36(1), 16–24.
 
-6. Leavy, O. (2014).
-   Neurodegenerative diseases: Innate immunity in Parkinson disease. *Nature Reviews Immunology*, 14, 357.
+6. Tansey, M. G., & Romero-Ramos, M. (2019).
+   *Immune system responses in Parkinson’s disease: Early and dynamic.*
+   European Journal of Neuroscience, 49(3), 364–383.
 
 7. Vivier, E., Raulet, D. H., Moretta, A., et al. (2011).
-   Innate or adaptive immunity? The example of natural killer cells. *Science*, 331(6013), 44–49.
+   *Innate or adaptive immunity? The example of natural killer cells.*
+   Science, 331(6013), 44–49.
 
 8. Abel, A., & Funk, C. D. (2016).
-   Metabolism of prostaglandins and the role of prostaglandin D synthase (PTGDS) in neurological disease. *Journal of Lipid Research*.
+   *Metabolism of prostaglandins and the role of prostaglandin D synthase (PTGDS) in neurological disease.*
+   Journal of Lipid Research.
 
-9. Hirsch, E. C., Standaert, D. G. (2021).
-   Ten unsolved questions about neuroinflammation in Parkinson’s disease. *Movement Disorders*, 36(1), 16–24.
+9. Cooper, A. A., Gitler, A. D., Cashikar, A., et al. (2006).
+   *Alpha-synuclein blocks ER-Golgi traffic and Rab1 rescues neuron loss.*
+   Science, 313(5785), 324–328.
 
-10. Tansey, M. G., Romero-Ramos, M. (2019).
-    Immune system responses in Parkinson’s disease: Early and dynamic. *European Journal of Neuroscience*, 49(3), 364–383.
+10. NCBI Gene Database.
+    Gene annotations used for biological interpretation.
 
-11. NCBI Gene Database.
-    Gene records for PTGDS, CD14, ICAM1, KIR2DL1, KIR2DL3, ITGAM, PTK2B, and PSAP.
+11. UniProt Knowledgebase (UniProtKB).
+    Functional annotations of candidate genes.
 
-12. UniProt Knowledgebase (UniProtKB).
-    Functional annotations for genes discussed in the biological interpretation section.
+12. Affymetrix GPL570 and GPL96 platform annotation files.
+    Used for probe-to-gene mapping and cross-platform harmonization.
 
 ---
 
