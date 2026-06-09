@@ -97,15 +97,6 @@ Model Performance
 
 ![ROC Curve](roc_auc.png)
 
-Key findings:
-
-* Blood transcriptomic data contains a moderate but reproducible predictive signal
-* An initial 80/20 train-test split produced ROC-AUC ≈ 0.64, while 5-fold cross-validation provided a more stable estimate of model performance.
-* Linear models outperform nonlinear models in this high-dimensional setting
-* ANOVA/SelectKBest with top 500 probes reduced Logistic Regression performance to ROC-AUC ≈ 0.623 ± 0.046.
-* L1 Logistic Regression selected approximately 499 probes out of 54,675.
-* Neither L1 regularization nor Elastic Net improved predictive performance.
-* Results suggest that the Parkinson’s disease transcriptomic signal is distributed across many weak features rather than a small number of dominant biomarkers.
 ---
 
 ### Candidate Genes
@@ -117,6 +108,16 @@ Top features (genes) identified by the model:
 ![Top Features](feature_importance.png)
 
 These genes represent the strongest contributors to the model’s classification of PD vs control.
+
+Key findings:
+
+* Blood transcriptomic data contains a moderate but reproducible predictive signal
+* An initial 80/20 train-test split produced ROC-AUC ≈ 0.64, while 5-fold cross-validation provided a more stable estimate of model performance.
+* Linear models outperform nonlinear models in this high-dimensional setting
+* ANOVA/SelectKBest with top 500 probes reduced Logistic Regression performance to ROC-AUC ≈ 0.623 ± 0.046.
+* L1 Logistic Regression selected approximately 499 probes out of 54,675.
+* Neither L1 regularization nor Elastic Net improved predictive performance.
+* Results suggest that the Parkinson’s disease transcriptomic signal is distributed across many weak features rather than a small number of dominant biomarkers.
 
 ---
 ## Study 2: External Validation (GSE6613)
