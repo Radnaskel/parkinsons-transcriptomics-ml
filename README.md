@@ -7,7 +7,7 @@ This project investigates whether peripheral blood transcriptomic profiles can b
 The work consists of two complementary studies:
 
 Within-cohort modeling (**GSE99039**) – development and evaluation of machine learning models using cross-validation.
-Cross-cohort external validation (**GSE6613**) – independent validation of trained models across a separate dataset with batch-effect correction and gene-level harmonization.
+Cross-cohort external evaluation (GSE6613) – exploratory assessment of model transferability across an independent cohort after gene-level harmonization and batch-effect correction.
 
 ---
 ## Key Results
@@ -17,7 +17,7 @@ Cross-cohort external validation (**GSE6613**) – independent validation of tra
 * L1 Logistic Regression selected 499 probes but did not improve performance
 * 13,237 shared genes were identified across cohorts
 * ComBat batch correction substantially improved cross-cohort generalization
-* PTGDS, CD14, ICAM1, KIR2DL1, and KIR2DL3 emerged as biologically plausible candidate genes
+* PTGDS, CD14, ICAM1, KIR2DL1, and KIR2DL3 emerged as candidate genes
 
 ---
 ## Objective
@@ -117,7 +117,7 @@ Key findings:
 * ANOVA/SelectKBest with top 500 probes reduced Logistic Regression performance to ROC-AUC ≈ 0.623 ± 0.046.
 * L1 Logistic Regression selected approximately 499 probes out of 54,675.
 * Neither L1 regularization nor Elastic Net improved predictive performance.
-* Results suggest that the Parkinson’s disease transcriptomic signal is distributed across many weak features rather than a small number of dominant biomarkers.
+* Results suggest that the Parkinson’s disease transcriptomic signal is distributed across many weak features rather than a small number of dominant genes.
 
 ---
 ## Study 2: External Validation (GSE6613)
@@ -248,7 +248,8 @@ Several additional genes identified in the discovery cohort (**LGR6**, **ZMYM2**
 * Limited cohort sizes
 * Cross-platform differences between microarray datasets
 * Potential residual batch effects
-
+* ComBat correction was applied using both cohorts simultaneously, which may introduce transductive information from the external dataset.
+* The external validation cohort (GSE6613) was also used for preprocessing strategy comparison and should therefore be considered an exploratory external validation rather than a completely untouched holdout dataset.
 ---
 
 ## Future Work
