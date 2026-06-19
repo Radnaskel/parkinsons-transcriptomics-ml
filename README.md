@@ -288,21 +288,17 @@ Several additional genes identified in the discovery cohort (**LGR6**, **ZMYM2**
    *Innate or adaptive immunity? The example of natural killer cells.*
    Science, 331(6013), 44–49.
 
-8. Abel, A., & Funk, C. D. (2016).
-   *Metabolism of prostaglandins and the role of prostaglandin D synthase (PTGDS) in neurological disease.*
-   Journal of Lipid Research.
-
-9. Cooper, A. A., Gitler, A. D., Cashikar, A., et al. (2006).
+8. Cooper, A. A., Gitler, A. D., Cashikar, A., et al. (2006).
    *Alpha-synuclein blocks ER-Golgi traffic and Rab1 rescues neuron loss.*
    Science, 313(5785), 324–328.
 
-10. NCBI Gene Database.
+9. NCBI Gene Database.
     Gene annotations used for biological interpretation.
 
-11. UniProt Knowledgebase (UniProtKB).
+10. UniProt Knowledgebase (UniProtKB).
     Functional annotations of candidate genes.
 
-12. Affymetrix GPL570 and GPL96 platform annotation files.
+11. Affymetrix GPL570 and GPL96 platform annotation files.
     Used for probe-to-gene mapping and cross-platform harmonization.
 
 ---
