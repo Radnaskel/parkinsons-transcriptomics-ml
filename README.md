@@ -272,33 +272,33 @@ Several additional genes identified in the discovery cohort (**LGR6**, **ZMYM2**
    *The genetics of Parkinson’s disease: progress and therapeutic implications.*
    The Lancet Neurology, 12(5), 500–512.
 
-4. Makarious, M. B., Leonard, H. L., Vitale, D., et al. (2022).
-   *Blood-based RNA biomarkers for Parkinson’s disease identified in discordant monozygotic twins.*
-   https://pubmed.ncbi.nlm.nih.gov/36010675/
+4. Semenova, E.I.; Vlasov, I.N.; Partevian, S.A., et al. (2022)
+   *Transcriptome Profiling Reveals Differential Expression of Circadian Behavior Genes in Peripheral Blood of Monozygotic Twins Discordant for Parkinson’s Disease.*
+    Cells, 11, 2599. https://doi.org/10.3390/cells11162599
 
-5. Hirsch, E. C., & Standaert, D. G. (2021).
+6. Hirsch, E. C., & Standaert, D. G. (2021).
    *Ten unsolved questions about neuroinflammation in Parkinson’s disease.*
    Movement Disorders, 36(1), 16–24.
 
-6. Tansey, M. G., & Romero-Ramos, M. (2019).
+7. Tansey, M. G., & Romero-Ramos, M. (2019).
    *Immune system responses in Parkinson’s disease: Early and dynamic.*
    European Journal of Neuroscience, 49(3), 364–383.
 
-7. Vivier, E., Raulet, D. H., Moretta, A., et al. (2011).
+8. Vivier, E., Raulet, D. H., Moretta, A., et al. (2011).
    *Innate or adaptive immunity? The example of natural killer cells.*
    Science, 331(6013), 44–49.
 
-8. Cooper, A. A., Gitler, A. D., Cashikar, A., et al. (2006).
+9. Cooper, A. A., Gitler, A. D., Cashikar, A., et al. (2006).
    *Alpha-synuclein blocks ER-Golgi traffic and Rab1 rescues neuron loss.*
    Science, 313(5785), 324–328.
 
-9. NCBI Gene Database.
+10. NCBI Gene Database.
     Gene annotations used for biological interpretation.
 
-10. UniProt Knowledgebase (UniProtKB).
+11. UniProt Knowledgebase (UniProtKB).
     Functional annotations of candidate genes.
 
-11. Affymetrix GPL570 and GPL96 platform annotation files.
+12. Affymetrix GPL570 and GPL96 platform annotation files.
     Used for probe-to-gene mapping and cross-platform harmonization.
 
 ---
